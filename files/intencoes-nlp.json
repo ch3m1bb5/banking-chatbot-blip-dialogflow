@@ -1,0 +1,103 @@
+{
+  "_instrucoes": "Cadastre estas intenções na aba IA / Inteligência Artificial do bot ACME Bank PUC. O campo 'nome' deve ser idêntico ao usado nas condições 'Intenção identificada / Igual a' do fluxo. Treine o modelo e publique antes de testar.",
+
+  "intencoes": [
+    {
+      "nome": "Cartoes",
+      "usadaEm": "Boas vindas -> 1. Cartões",
+      "frasesTreinamento": [
+        "dúvidas sobre cartões",
+        "quero saber sobre o cartão",
+        "tenho uma dúvida no meu cartão",
+        "informações do cartão de crédito",
+        "sobre cartão",
+        "meu cartão",
+        "queria falar do cartão",
+        "ajuda com cartão",
+        "cartão de crédito",
+        "preciso de informação sobre cartões"
+      ]
+    },
+    {
+      "nome": "Saldo",
+      "usadaEm": "Boas vindas -> 2. Saldo",
+      "frasesTreinamento": [
+        "visualizar saldo",
+        "quero ver meu saldo",
+        "quanto tenho na conta",
+        "consultar saldo",
+        "qual o meu saldo",
+        "ver extrato",
+        "saldo disponível",
+        "quanto tem na minha conta",
+        "me mostra o saldo",
+        "checar meu saldo"
+      ]
+    },
+    {
+      "nome": "Cliente",
+      "usadaEm": "Boas vindas -> 3. Novo cliente",
+      "frasesTreinamento": [
+        "quero ser cliente",
+        "como abrir uma conta",
+        "quero abrir conta",
+        "desejo me tornar cliente",
+        "falar com um atendente",
+        "quero falar com alguém",
+        "atendimento humano",
+        "preciso de um atendente",
+        "abrir conta no banco",
+        "quero contratar"
+      ]
+    },
+    {
+      "nome": "Bandeira",
+      "usadaEm": "1. Cartões -> 1.1 Bandeiras",
+      "frasesTreinamento": [
+        "saber a bandeira do cartão",
+        "qual a bandeira",
+        "quais bandeiras vocês têm",
+        "o cartão é visa ou master",
+        "bandeira do cartão",
+        "que bandeiras aceitam",
+        "é mastercard",
+        "tem visa"
+      ]
+    },
+    {
+      "nome": "Vencimento",
+      "usadaEm": "1. Cartões -> 1.2 Data de Vencimento",
+      "frasesTreinamento": [
+        "data de vencimento",
+        "quando vence minha fatura",
+        "qual dia vence o cartão",
+        "vencimento da fatura",
+        "dia do vencimento",
+        "quando devo pagar",
+        "posso mudar a data de vencimento",
+        "que dia fecha a fatura"
+      ]
+    },
+    {
+      "nome": "Milhas",
+      "usadaEm": "1. Cartões -> 1.3 Pontos e Milhas",
+      "frasesTreinamento": [
+        "pontos e milhas",
+        "como funcionam os pontos",
+        "quantos pontos eu ganho",
+        "programa de fidelidade",
+        "acumular milhas",
+        "quero saber das milhas",
+        "pontuação do cartão",
+        "como junto pontos"
+      ]
+    }
+  ],
+
+  "_observacoes": [
+    "Mínimo recomendado: 8 a 10 frases por intenção. Menos que isso o modelo confunde intenções parecidas.",
+    "Não crie uma intenção para o Erro padrão — ele é a saída padrão do bloco, acionada quando nada casa.",
+    "Depois de treinar, teste no painel de IA antes de testar no fluxo: se a intenção não é reconhecida lá, também não vai funcionar na condição.",
+    "As condições por 'Resposta do usuário / Contém' continuam valendo em paralelo (o OU do painel). Quem digita '2' cai no saldo sem passar pelo NLP."
+  ]
+}

@@ -1,0 +1,523 @@
+{
+  "flow": {
+    "onboarding": {
+      "id": "onboarding",
+      "root": true,
+      "$title": "Boas-vindas",
+      "$position": {
+        "top": 40,
+        "left": 560
+      },
+      "$invalid": false,
+      "$enteringCustomActions": [],
+      "$leavingCustomActions": [],
+      "$contentActions": [
+        {
+          "$id": "act-welcome",
+          "$typeOfContent": "text",
+          "input": {
+            "bypass": true
+          },
+          "action": {
+            "type": "SendMessage",
+            "settings": {
+              "type": "text/plain",
+              "content": "Olá! {{contact.name}}!\nSeja bem-vindo(a)!"
+            }
+          }
+        }
+      ],
+      "$conditionOutputs": [],
+      "$defaultOutput": {
+        "stateId": "menu-principal"
+      },
+      "input": {
+        "bypass": true
+      }
+    },
+    "menu-principal": {
+      "id": "menu-principal",
+      "root": false,
+      "$title": "Menu Principal",
+      "$position": {
+        "top": 200,
+        "left": 560
+      },
+      "$invalid": false,
+      "$enteringCustomActions": [],
+      "$leavingCustomActions": [],
+      "$contentActions": [
+        {
+          "$id": "act-menu-principal",
+          "$typeOfContent": "select",
+          "input": {
+            "bypass": false
+          },
+          "action": {
+            "type": "SendMessage",
+            "settings": {
+              "type": "application/vnd.lime.select+json",
+              "content": {
+                "text": "Como posso te ajudar?\n\n1. Dúvidas sobre cartões\n2. Visualizar saldo\n3. Quero ser cliente",
+                "options": [
+                  {
+                    "order": 1,
+                    "text": "1. Dúvidas sobre cartões"
+                  },
+                  {
+                    "order": 2,
+                    "text": "2. Visualizar saldo"
+                  },
+                  {
+                    "order": 3,
+                    "text": "3. Quero ser cliente"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "$conditionOutputs": [
+        {
+          "$id": "out-menu-cartoes",
+          "$title": "1. Cartões",
+          "stateId": "cartoes-submenu",
+          "conditions": [
+            {
+              "source": "input",
+              "comparison": "matches",
+              "values": [
+                "^(1|1\\..*|cart[õo]es?|d[úu]vidas.*cart[õo]es?)$"
+              ]
+            }
+          ]
+        },
+        {
+          "$id": "out-menu-saldo",
+          "$title": "2. Saldo",
+          "stateId": "saldo-pede-conta",
+          "conditions": [
+            {
+              "source": "input",
+              "comparison": "matches",
+              "values": [
+                "^(2|2\\..*|saldo|visualizar.*saldo)$"
+              ]
+            }
+          ]
+        },
+        {
+          "$id": "out-menu-cliente",
+          "$title": "3. Cliente",
+          "stateId": "cliente-aguarde",
+          "conditions": [
+            {
+              "source": "input",
+              "comparison": "matches",
+              "values": [
+                "^(3|3\\..*|cliente|quero.*ser.*cliente)$"
+              ]
+            }
+          ]
+        }
+      ],
+      "$defaultOutput": {
+        "stateId": "fallback-menu"
+      },
+      "input": {
+        "bypass": false,
+        "$cardContent": {
+          "document": {}
+        },
+        "variable": "opcaoMenuPrincipal"
+      }
+    },
+    "fallback-menu": {
+      "id": "fallback-menu",
+      "root": false,
+      "$title": "Não entendi (Menu)",
+      "$position": {
+        "top": 40,
+        "left": 320
+      },
+      "$invalid": false,
+      "$contentActions": [
+        {
+          "$id": "act-fallback-menu",
+          "$typeOfContent": "text",
+          "input": {
+            "bypass": true
+          },
+          "action": {
+            "type": "SendMessage",
+            "settings": {
+              "type": "text/plain",
+              "content": "Desculpe, não entendi. Por favor, digite 1, 2 ou 3."
+            }
+          }
+        }
+      ],
+      "$conditionOutputs": [],
+      "$defaultOutput": {
+        "stateId": "menu-principal"
+      },
+      "input": {
+        "bypass": true
+      }
+    },
+    "cartoes-submenu": {
+      "id": "cartoes-submenu",
+      "root": false,
+      "$title": "Cartões - Submenu de dúvidas",
+      "$position": {
+        "top": 380,
+        "left": 220
+      },
+      "$invalid": false,
+      "$contentActions": [
+        {
+          "$id": "act-cartoes-menu",
+          "$typeOfContent": "select",
+          "input": {
+            "bypass": false
+          },
+          "action": {
+            "type": "SendMessage",
+            "settings": {
+              "type": "application/vnd.lime.select+json",
+              "content": {
+                "text": "Qual sua dúvida sobre cartões?\n\n1. Saber a bandeira do cartão\n2. Data de vencimento\n3. Pontos e Milhas",
+                "options": [
+                  {
+                    "order": 1,
+                    "text": "1. Saber a bandeira do cartão"
+                  },
+                  {
+                    "order": 2,
+                    "text": "2. Data de vencimento"
+                  },
+                  {
+                    "order": 3,
+                    "text": "3. Pontos e Milhas"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "$conditionOutputs": [
+        {
+          "$id": "out-cartoes-bandeira",
+          "$title": "1. Bandeira",
+          "stateId": "cartoes-bandeira",
+          "conditions": [
+            {
+              "source": "input",
+              "comparison": "matches",
+              "values": [
+                "^(1|1\\..*|bandeira)$"
+              ]
+            }
+          ]
+        },
+        {
+          "$id": "out-cartoes-vencimento",
+          "$title": "2. Vencimento",
+          "stateId": "cartoes-vencimento",
+          "conditions": [
+            {
+              "source": "input",
+              "comparison": "matches",
+              "values": [
+                "^(2|2\\..*|vencimento|data.*vencimento)$"
+              ]
+            }
+          ]
+        },
+        {
+          "$id": "out-cartoes-milhas",
+          "$title": "3. Milhas",
+          "stateId": "cartoes-milhas",
+          "conditions": [
+            {
+              "source": "input",
+              "comparison": "matches",
+              "values": [
+                "^(3|3\\..*|milhas|pontos|pontos.*milhas)$"
+              ]
+            }
+          ]
+        }
+      ],
+      "$defaultOutput": {
+        "stateId": "cartoes-submenu"
+      },
+      "input": {
+        "bypass": false,
+        "variable": "opcaoCartoes"
+      }
+    },
+    "cartoes-bandeira": {
+      "id": "cartoes-bandeira",
+      "root": false,
+      "$title": "Cartões - Bandeira",
+      "$position": {
+        "top": 700,
+        "left": 40
+      },
+      "$invalid": false,
+      "$contentActions": [
+        {
+          "$id": "act-bandeira",
+          "$typeOfContent": "text",
+          "input": {
+            "bypass": true
+          },
+          "action": {
+            "type": "SendMessage",
+            "settings": {
+              "type": "text/plain",
+              "content": "Nossos cartões podem possuir uma das seguintes bandeiras:\n\nMaster, Visa, XPTO"
+            }
+          }
+        }
+      ],
+      "$conditionOutputs": [],
+      "$defaultOutput": {
+        "stateId": "menu-principal"
+      },
+      "input": {
+        "bypass": true
+      }
+    },
+    "cartoes-vencimento": {
+      "id": "cartoes-vencimento",
+      "root": false,
+      "$title": "Cartões - Vencimento",
+      "$position": {
+        "top": 700,
+        "left": 260
+      },
+      "$invalid": false,
+      "$contentActions": [
+        {
+          "$id": "act-vencimento",
+          "$typeOfContent": "text",
+          "input": {
+            "bypass": true
+          },
+          "action": {
+            "type": "SendMessage",
+            "settings": {
+              "type": "text/plain",
+              "content": "As datas de vencimento das faturas dos cartões podem ocorrer nos dias: 7, 14 ou 21 de cada mês.\n\nO cliente pode optar pela melhor data."
+            }
+          }
+        }
+      ],
+      "$conditionOutputs": [],
+      "$defaultOutput": {
+        "stateId": "menu-principal"
+      },
+      "input": {
+        "bypass": true
+      }
+    },
+    "cartoes-milhas": {
+      "id": "cartoes-milhas",
+      "root": false,
+      "$title": "Cartões - Pontos e Milhas",
+      "$position": {
+        "top": 700,
+        "left": 480
+      },
+      "$invalid": false,
+      "$contentActions": [
+        {
+          "$id": "act-milhas",
+          "$typeOfContent": "text",
+          "input": {
+            "bypass": true
+          },
+          "action": {
+            "type": "SendMessage",
+            "settings": {
+              "type": "text/plain",
+              "content": "A cada R$1 gasto no cartão você acumula 3 pontos em nosso programa de fidelidade ACME.\n\nQuanto mais usar mais pontos ganha."
+            }
+          }
+        }
+      ],
+      "$conditionOutputs": [],
+      "$defaultOutput": {
+        "stateId": "menu-principal"
+      },
+      "input": {
+        "bypass": true
+      }
+    },
+    "saldo-pede-conta": {
+      "id": "saldo-pede-conta",
+      "root": false,
+      "$title": "Saldo - Pede conta e agência",
+      "$position": {
+        "top": 380,
+        "left": 620
+      },
+      "$invalid": false,
+      "$contentActions": [
+        {
+          "$id": "act-pede-conta",
+          "$typeOfContent": "text",
+          "input": {
+            "bypass": false
+          },
+          "action": {
+            "type": "SendMessage",
+            "settings": {
+              "type": "text/plain",
+              "content": "Qual o número da sua conta com agência?\n\nEx.: 010203-9"
+            }
+          }
+        }
+      ],
+      "$conditionOutputs": [],
+      "$defaultOutput": {
+        "stateId": "saldo-api-mock"
+      },
+      "input": {
+        "bypass": false,
+        "variable": "contaAgencia"
+      }
+    },
+    "saldo-api-mock": {
+      "id": "saldo-api-mock",
+      "root": false,
+      "$title": "Integração API do ACME Bank (Mock)",
+      "$position": {
+        "top": 560,
+        "left": 620
+      },
+      "$invalid": false,
+      "$enteringCustomActions": [
+        {
+          "$id": "act-request-saldo",
+          "$typeOfContent": "request",
+          "action": {
+            "type": "ProcessHttp",
+            "settings": {
+              "method": "GET",
+              "uri": "https://run.mocky.io/v3/00000000-mock-acme-bank-saldo",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "responseStatusVariable": "statusSaldo",
+              "responseBodyVariable": "respostaSaldo"
+            }
+          }
+        },
+        {
+          "$id": "act-set-saldo",
+          "$typeOfContent": "executeScript",
+          "action": {
+            "type": "ExecuteScript",
+            "settings": {
+              "function": "run",
+              "inputVariables": [
+                "respostaSaldo"
+              ],
+              "outputVariable": "dadosSaldo",
+              "source": "function run(respostaSaldo) {\n  try {\n    var r = JSON.parse(respostaSaldo);\n    return { saldo: r.saldo.formatado, limite: r.limite.formatado, status: r.status };\n  } catch (e) {\n    return { saldo: 'indisponível', limite: 'indisponível', status: 'erro' };\n  }\n}"
+            }
+          }
+        }
+      ],
+      "$contentActions": [
+        {
+          "$id": "act-msg-saldo",
+          "$typeOfContent": "text",
+          "input": {
+            "bypass": true
+          },
+          "action": {
+            "type": "SendMessage",
+            "settings": {
+              "type": "text/plain",
+              "content": "Seu saldo atualizado é de {{dadosSaldo@saldo}}\n\nLimite pré-aprovado: {{dadosSaldo@limite}}"
+            }
+          }
+        }
+      ],
+      "$conditionOutputs": [],
+      "$defaultOutput": {
+        "stateId": "menu-principal"
+      },
+      "input": {
+        "bypass": true
+      }
+    },
+    "cliente-aguarde": {
+      "id": "cliente-aguarde",
+      "root": false,
+      "$title": "Cliente - Aguarde / Transbordo",
+      "$position": {
+        "top": 380,
+        "left": 940
+      },
+      "$invalid": false,
+      "$contentActions": [
+        {
+          "$id": "act-aguarde",
+          "$typeOfContent": "text",
+          "input": {
+            "bypass": false
+          },
+          "action": {
+            "type": "SendMessage",
+            "settings": {
+              "type": "text/plain",
+              "content": "Aguarde um instante, estou te conectando a um de nossos atendentes."
+            }
+          }
+        }
+      ],
+      "$enteringCustomActions": [],
+      "$leavingCustomActions": [
+        {
+          "$id": "act-forward-human",
+          "$typeOfContent": "redirect",
+          "action": {
+            "type": "Redirect",
+            "settings": {
+              "address": "desk",
+              "context": {
+                "reason": "Cliente solicitou atendimento humano"
+              }
+            }
+          }
+        }
+      ],
+      "$conditionOutputs": [],
+      "$defaultOutput": {
+        "stateId": "onboarding"
+      },
+      "input": {
+        "bypass": false,
+        "variable": "mensagemAposTransbordo"
+      }
+    }
+  },
+  "globalActions": {
+    "$enteringCustomActions": [],
+    "$leavingCustomActions": [],
+    "$contentActions": [],
+    "$conditionOutputs": []
+  },
+  "meta": {
+    "nome": "ACME Bank - Atendimento",
+    "descricao": "Fluxo replicado a partir do fluxograma: Menu principal, Cartões (bandeira/vencimento/milhas), Saldo (API mock) e Transbordo humano. v1.1: boas-vindas separada do menu (os retornos voltam ao Menu Principal sem repetir a saudação).",
+    "versao": "1.1"
+  }
+}

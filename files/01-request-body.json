@@ -1,0 +1,15 @@
+{
+  "queryInput": {
+    "text": {
+      "text": "{{input.content}}",
+      "languageCode": "pt-BR"
+    }
+  },
+  "queryParams": {
+    "timeZone": "America/Sao_Paulo",
+    "payload": {
+      "source": "blip",
+      "contactIdentity": "{{contact.identity}}"
+    }
+  }
+}

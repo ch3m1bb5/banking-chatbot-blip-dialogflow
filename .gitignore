@@ -1,0 +1,27 @@
+# Segredos — NUNCA publicar
+.env
+.env.*
+!.env.example
+
+# Python / Jupyter
+__pycache__/
+.ipynb_checkpoints/
+.cache/
+venv/
+.venv/
+node_modules/
+dist/
+
+# Logs, dados gerados e pacotes
+*.log
+logs/
+data/
+alert_log.csv
+*.zip
+
+# Google Cloud service-account keys (Dialogflow) — never commit
+*service-account*.json
+*serviceaccount*.json
+credentials*.json
+*-sa.json
+key.json

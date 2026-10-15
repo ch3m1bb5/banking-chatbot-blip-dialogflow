@@ -1,0 +1,61 @@
+{
+  "bloco": "Dialogflow NLP",
+  "descricao": "Envia a mensagem do usuário ao Dialogflow, recebe a intenção e roteia para os ramos do fluxo ACME Bank.",
+
+  "acaoEntrada_requisicao": {
+    "tipo": "ProcessHttp",
+    "metodo": "POST",
+    "url": "{{resource.dialogflowProxyUrl}}",
+    "headers": {
+      "Content-Type": "application/json",
+      "x-api-key": "{{resource.proxyApiKey}}"
+    },
+    "bodyArquivo": "01-request-body.json",
+    "salvarCorpoEm": "respostaDialogflow",
+    "salvarStatusEm": "statusDialogflow"
+  },
+
+  "acaoEntrada_script": {
+    "tipo": "ExecuteScript",
+    "variaveisEntrada": ["respostaDialogflow"],
+    "variavelSaida": "dialogflow",
+    "funcao": "run",
+    "arquivoFonte": "03-script-parse.js"
+  },
+
+  "condicoesSaida": [
+    {
+      "variavel": "dialogflow@intent",
+      "comparacao": "contains",
+      "valor": "cartoes",
+      "irPara": "1. Cartões"
+    },
+    {
+      "variavel": "dialogflow@intent",
+      "comparacao": "contains",
+      "valor": "saldo",
+      "irPara": "2. Saldo"
+    },
+    {
+      "variavel": "dialogflow@intent",
+      "comparacao": "contains",
+      "valor": "novo_cliente",
+      "irPara": "3. Novo cliente"
+    },
+    {
+      "variavel": "dialogflow@confianca",
+      "comparacao": "lessThan",
+      "valor": "0.5",
+      "irPara": "Erro padrão"
+    }
+  ],
+
+  "saidaPadrao": "Erro padrão",
+
+  "recursosNecessarios": {
+    "dialogflowProxyUrl": "URL do proxy que autentica no Dialogflow (ver 05-cloud-function.js)",
+    "proxyApiKey": "Chave simples para o Blip autenticar no seu proxy"
+  },
+
+  "observacao": "Guarde os dois recursos acima no Gerenciador de Recursos do Blip (Configurações > Recursos). Nunca cole a service account JSON dentro do fluxo."
+}

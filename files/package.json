@@ -1,0 +1,16 @@
+{
+  "name": "blip-dialogflow-proxy",
+  "version": "1.0.0",
+  "description": "Proxy que autentica no Dialogflow v2 e serve o Blip Builder",
+  "main": "05-cloud-function.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@google-cloud/dialogflow": "^6.5.0"
+  },
+  "scripts": {
+    "start": "npx @google-cloud/functions-framework --target=detectIntent --source=05-cloud-function.js",
+    "test": "node --test"
+  }
+}

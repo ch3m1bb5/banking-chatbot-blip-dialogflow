@@ -1,0 +1,16 @@
+{
+  "responseId": "exemplo-response-id",
+  "queryResult": {
+    "queryText": "quero ver meu saldo",
+    "parameters": {},
+    "allRequiredParamsPresent": true,
+    "fulfillmentText": "Vou consultar seu saldo.",
+    "intent": {
+      "name": "projects/SEU_PROJECT_ID/agent/intents/xxxxx",
+      "displayName": "consultar_saldo"
+    },
+    "intentDetectionConfidence": 0.92,
+    "languageCode": "pt-br"
+  },
+  "_comentario": "displayName é o que o script lê como 'intent'. Nomeie suas intenções no Dialogflow como: duvidas_cartoes, consultar_saldo, novo_cliente — para casar com as condições de saída do bloco."
+}
